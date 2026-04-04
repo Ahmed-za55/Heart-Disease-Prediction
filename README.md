@@ -1,37 +1,43 @@
 # ❤️ Heart Disease Prediction using Machine Learning
 
 ## 📌 Overview
-This project predicts whether a person has heart disease using Machine Learning.
+
+This project predicts whether a person has heart disease using Machine Learning techniques.
 
 ---
 
 ## 📊 Dataset
-- Source: Kaggle
-- Rows: 1025
-- Features: 13 + target
+
+* Source: Kaggle
+* 1025 records
+* 13 features + target
 
 ---
 
 ## 🤖 Models Used
-- Logistic Regression → ~80% Accuracy
-- Random Forest → ~98% Accuracy
+
+* Logistic Regression → Accuracy: ~80%
+* Random Forest → Accuracy: ~98% 🔥
 
 ---
 
-## 📈 Steps
-1. Data Loading
-2. Data Cleaning
-3. Data Visualization
-4. Model Training
-5. Evaluation
+## 📈 Visualizations
+
+### Target Distribution
+
+![Target](https://via.placeholder.com/400)
+
+### Feature Importance
+
+![Feature](https://via.placeholder.com/400)
 
 ---
 
-## 🔍 Feature Importance
-Top features:
-- cp (chest pain)
-- ca (number of vessels)
-- thalach (heart rate)
+## 🔍 Key Insights
+
+* Chest pain type is the most important feature
+* Number of vessels significantly affects prediction
+* Heart rate plays a major role
 
 ---
 
@@ -39,4 +45,11 @@ Top features:
 
 ```bash
 pip install pandas numpy matplotlib seaborn scikit-learn
-python main.py# Heart-Disease-Prediction
+python main.py
+```
+
+---
+
+## 👨‍💻 Author
+
+Ahmed Sameh
