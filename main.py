@@ -1,100 +1,99 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-
-df = pd.read_csv("heart.csv")
-
-print(df.head())
-print(df.shape)
-
-print(df.isnull().sum())
-
-print(df['target'].value_counts())
-
-
+import numpy as np
 
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 
+from sklearn.metrics import (
+    accuracy_score,
+    confusion_matrix,
+    classification_report,
+    roc_auc_score,
+    roc_curve
+)
 
+# ================== Load Data ==================
+df = pd.read_csv("heart.csv")
+
+print("Shape:", df.shape)
+print("\nMissing Values:\n", df.isnull().sum())
+
+# ================== EDA ==================
+print("\nTarget Distribution:\n", df['target'].value_counts())
+
+plt.figure(figsize=(5,4))
+sns.countplot(x='target', data=df)
+plt.title("Target Distribution")
+plt.show()
+
+# ================== Correlation Heatmap ==================
+plt.figure(figsize=(12,8))
+sns.heatmap(df.corr(), cmap="coolwarm")
+plt.title("Feature Correlation Heatmap")
+plt.show()
+
+# ================== Outliers (Boxplot) ==================
+plt.figure(figsize=(12,6))
+sns.boxplot(data=df.drop('target', axis=1))
+plt.title("Outlier Detection (Boxplot)")
+plt.xticks(rotation=90)
+plt.show()
+
+# ================== Features & Target ==================
 X = df.drop('target', axis=1)
 y = df['target']
 
+# Scaling
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-
+# Train/Test Split
 X_train, X_test, y_train, y_test = train_test_split(
     X_scaled, y, test_size=0.2, random_state=42
 )
 
-# ================== Logistic Regression ==================
-log_model = LogisticRegression(max_iter=1000)
-log_model.fit(X_train, y_train)
+# ================== Models ==================
+models = {
+    "Logistic Regression": LogisticRegression(max_iter=1000),
+    "Random Forest": RandomForestClassifier(n_estimators=100)
+}
 
-y_pred = log_model.predict(X_test)
+best_model = None
+best_score = 0
 
-print("\n===== Logistic Regression =====")
-print("Accuracy:", accuracy_score(y_test, y_pred))
-print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
-print(classification_report(y_test, y_pred))
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    preds = model.predict(X_test)
 
-# ================== Random Forest ==================
-rf_model = RandomForestClassifier(n_estimators=100)
-rf_model.fit(X_train, y_train)
+    acc = accuracy_score(y_test, preds)
+    print(f"\n{name}")
+    print("Accuracy:", acc)
+    print(classification_report(y_test, preds))
 
-rf_pred = rf_model.predict(X_test)
+    cm = confusion_matrix(y_test, preds)
+    sns.heatmap(cm, annot=True, fmt='d')
+    plt.title(f"{name} Confusion Matrix")
+    plt.show()
 
-print("\n===== Random Forest =====")
-print("Accuracy:", accuracy_score(y_test, rf_pred))
-print("Confusion Matrix:\n", confusion_matrix(y_test, rf_pred))
-print(classification_report(y_test, rf_pred))
+    if acc > best_score:
+        best_score = acc
+        best_model = model
 
-# ================== Feature Importance ==================
-importance = rf_model.feature_importances_
-features = X.columns
-feat_importance = pd.Series(importance, index=features)
+# ================== ROC Curve (Best Model) ==================
+y_prob = best_model.predict_proba(X_test)[:,1]
 
+fpr, tpr, _ = roc_curve(y_test, y_prob)
+roc_score = roc_auc_score(y_test, y_prob)
 
-plt.figure(figsize=(14,5))
-
-plt.subplot(1,2,1)
-sns.countplot(x='target', data=df)
-plt.title("Target Distribution")
-
-
-plt.subplot(1,2,2)
-feat_importance.sort_values().plot(kind='barh')
-plt.title("Feature Importance")
-
-plt.tight_layout()
+plt.plot(fpr, tpr, label=f"AUC = {roc_score:.2f}")
+plt.plot([0,1],[0,1],'--')
+plt.title("ROC Curve (Best Model)")
+plt.legend()
 plt.show()
 
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.metrics import confusion_matrix
-
-import numpy as np
-cm = np.array([[102, 0],
-              [3, 100]])
-
-
-plt.figure(figsize=(8, 6))
-
-# 
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', cbar=False,
-            xticklabels=['Predicted 0', 'Predicted 1'],
-            yticklabels=['Actual 0', 'Actual 1'],
-            annot_kws={"size": 16}) # تكبير حجم الخط للأرقام
-
-plt.xlabel('Predicted Label', fontsize=14)
-plt.ylabel('True Label', fontsize=14)
-plt.title('Confusion Matrix - Random Forest', fontsize=16, fontweight='bold')
-
-
-plt.tight_layout() 
-plt.show()
+print("\nBest Model AUC:", roc_score)
 

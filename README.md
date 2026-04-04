@@ -1,91 +1,93 @@
 # ❤️ Heart Disease Prediction using Machine Learning
 
-⭐ Achieved 98% accuracy using Random Forest
+## 🚀 Project Overview
+This project uses Machine Learning to predict the risk of heart disease based on medical attributes such as blood pressure, cholesterol, chest pain type, and heart rate.
 
----
-
-## 📌 Overview
-
-This project predicts whether a person has heart disease using Machine Learning techniques based on medical attributes such as age, cholesterol level, and heart rate.
+The goal is to assist early medical diagnosis and reduce the risk of undetected heart disease.
 
 ---
 
 ## 📊 Dataset
-
-* Source: Kaggle
-* Total Records: 1025
-* Features: 13 input features + 1 target
-* Target:
-
-  * 0 → No Heart Disease
-  * 1 → Heart Disease
+- Source: UCI / Kaggle Heart Disease Dataset
+- Samples: 1025 patients
+- Features: 13 medical attributes
+- Target:
+  - 0 → No Heart Disease
+  - 1 → Heart Disease
 
 ---
 
-## 🤖 Models Used
-
-### 🔹 Logistic Regression
-
-* Accuracy: ~80%
-
-### 🔹 Random Forest (Best Model)
-
-* Accuracy: ~98% 🔥
+## 📌 Features Description (Medical Context)
+- cp → Chest pain type
+- trestbps → Resting blood pressure
+- chol → Serum cholesterol
+- thalach → Maximum heart rate achieved
+- oldpeak → ST depression
+- ca → Number of major vessels
 
 ---
 
-## 📈 Visualizations
-
-### 🔸 Target Distribution
-
-[Figure 1](./images/Figure_1.png)
-
-### 🔸 Feature Importance
-[Figure 2](./images/Figure_2.png)
-
+## ⚙️ Data Preprocessing
+- Handling missing values
+- Feature scaling using StandardScaler
+- Train/Test split (80/20)
+- Outlier detection using Boxplots
 
 ---
 
-## 🔍 Key Insights
-
-* Chest pain type (cp) is the most important feature
-* Number of vessels (ca) strongly affects prediction
-* Maximum heart rate (thalach) plays a major role
-* Fasting blood sugar has low impact
+## 🤖 Machine Learning Models
+- Logistic Regression
+- Random Forest Classifier (Best Model)
 
 ---
 
-## ⚙️ Technologies Used
+## 📈 Model Evaluation
 
-* Python 🐍
-* Pandas
-* NumPy
-* Seaborn & Matplotlib
-* Scikit-learn
+### Why Recall matters in Medical ML?
+In healthcare prediction, **Recall is more important than Accuracy** because missing a sick patient (False Negative) is very dangerous.
+
+---
+
+## 🏆 Results
+
+| Model                | Accuracy | Key Metric Focus |
+|---------------------|----------|------------------|
+| Logistic Regression | ~80%     | Balanced         |
+| Random Forest       | ~98%     | High Recall      |
+
+---
+
+## 📊 Visualizations
+- Correlation Heatmap
+- Boxplot (Outliers Detection)
+- Confusion Matrix
+- ROC Curve
+
+---
+
+## 📉 Key Insights
+- Chest pain type is a strong predictor of heart disease
+- Maximum heart rate significantly impacts diagnosis
+- Some features show strong correlation with the target
+
+---
+
+## 🛠️ Tech Stack
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- Matplotlib
+- Seaborn
 
 ---
 
 ## 🚀 How to Run
 
 ```bash
-pip install pandas numpy matplotlib seaborn scikit-learn
+git clone https://github.com/USERNAME/Heart-Disease-Prediction.git
+cd Heart-Disease-Prediction
+
+pip install -r requirements.txt
 python main.py
-```
-
----
-
-## 📂 Project Structure
-
-* main.py → Main Machine Learning code
-* heart.csv → Dataset
-* README.md → Project description
-
----
-
-## 👨‍💻 Author
-
-Ahmed Sameh
-
-🔗 Project Link:
-https://github.com/Ahmed-za55/Heart-Disease-Prediction
 
