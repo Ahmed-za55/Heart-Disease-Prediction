@@ -38,11 +38,11 @@ This project predicts whether a person has heart disease using Machine Learning 
 
 ### 🔸 Target Distribution
 
-(Add your image here after uploading it)
+[Figure 1](./images/Figure_1.png)
 
 ### 🔸 Feature Importance
+[Figure 2](./images/Figure_2.png)
 
-(Add your image here after uploading it)
 
 ---
 
