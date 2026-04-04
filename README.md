@@ -56,12 +56,25 @@ In healthcare prediction, **Recall is more important than Accuracy** because mis
 | Random Forest       | ~98%     | High Recall      |
 
 ---
-
 ## 📊 Visualizations
-- Correlation Heatmap
-- Boxplot (Outliers Detection)
-- Confusion Matrix
-- ROC Curve
+
+### 🔸 Target Distribution
+![Target Distribution](images/Figure_1.png)
+
+### 🔸 Feature Importance
+![Feature Importance](images/Figure_2.png)
+
+### 🔸 Correlation Heatmap
+![Correlation Heatmap](images/Figure_3.png)
+
+### 🔸 Confusion Matrix
+![Confusion Matrix](images/Figure_4.png)
+
+### 🔸 ROC Curve
+![ROC Curve](images/Figure_5.png)
+
+### 🔸 Outlier Detection (Boxplot)
+![Boxplot](images/Figure_6.png)
 
 ---
 
