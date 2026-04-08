@@ -47,14 +47,14 @@ plt.show()
 X = df.drop('target', axis=1)
 y = df['target']
 
-# Scaling
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
-
-# Train/Test Split
+# ✅ حطهم بدل الـ 3 سطول
 X_train, X_test, y_train, y_test = train_test_split(
-    X_scaled, y, test_size=0.2, random_state=42
+    X, y, test_size=0.2, random_state=42
 )
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
 
 # ================== Models ==================
 models = {
