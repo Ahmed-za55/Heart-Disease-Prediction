@@ -2,6 +2,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=flat&logo=python&logoColor=white)
 ![Scikit-learn](https://img.shields.io/badge/Scikit--learn-ML-F7931E?style=flat&logo=scikit-learn&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?style=flat&logo=streamlit&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-Data-150458?style=flat&logo=pandas&logoColor=white)
 ![NumPy](https://img.shields.io/badge/NumPy-Numerical-013243?style=flat&logo=numpy&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Complete-brightgreen?style=flat)
@@ -15,6 +16,24 @@ This project uses Machine Learning to predict the risk of heart disease based on
 
 The goal is to assist early medical diagnosis and reduce the risk of undetected heart disease.
 
+> ✅ Includes a **Streamlit Web App** — enter patient data and get instant predictions!
+
+---
+
+## 🌐 Web App Preview
+
+Run the app locally and interact with the model through a clean medical UI:
+
+```bash
+streamlit run app.py
+```
+
+**Features:**
+- Input 13 medical attributes via an interactive form
+- Instant prediction: HIGH RISK ⚠️ or LOW RISK ✅
+- Probability percentage with visual bar
+- Medical disclaimer footer
+
 ---
 
 ## 📊 Dataset
@@ -27,18 +46,27 @@ The goal is to assist early medical diagnosis and reduce the risk of undetected 
 | Features | 13 medical attributes |
 | Target | 0 → No Disease / 1 → Disease |
 
+> ⚠️ The original dataset contained **723 duplicate rows (70%)** — removed before training to ensure honest evaluation.
+
 ---
 
 ## 📌 Features Description
 
 | Feature | Description |
 |---------|-------------|
-| `cp` | Chest pain type |
-| `trestbps` | Resting blood pressure |
-| `chol` | Serum cholesterol |
+| `age` | Age of the patient |
+| `sex` | Sex (0 = Female, 1 = Male) |
+| `cp` | Chest pain type (0–3) |
+| `trestbps` | Resting blood pressure (mm Hg) |
+| `chol` | Serum cholesterol (mg/dl) |
+| `fbs` | Fasting blood sugar > 120 mg/dl |
+| `restecg` | Resting ECG results (0–2) |
 | `thalach` | Maximum heart rate achieved |
-| `oldpeak` | ST depression |
-| `ca` | Number of major vessels |
+| `exang` | Exercise induced angina |
+| `oldpeak` | ST depression induced by exercise |
+| `slope` | Slope of the peak exercise ST segment |
+| `ca` | Number of major vessels (0–4) |
+| `thal` | Thalassemia type (0–3) |
 
 ---
 
@@ -53,8 +81,10 @@ The goal is to assist early medical diagnosis and reduce the risk of undetected 
 
 ## 🤖 Machine Learning Models
 
-- Logistic Regression
-- Random Forest Classifier
+| Model | Type |
+|-------|------|
+| Logistic Regression | Baseline |
+| Random Forest Classifier | Best Model ⭐ |
 
 ---
 
@@ -72,10 +102,8 @@ Models evaluated using **5-Fold Cross-Validation** on training data for reliable
 
 | Model | Accuracy | CV Recall | AUC |
 |-------|----------|-----------|-----|
-| Logistic Regression | ~77% | ~90% | - |
-| Random Forest | ~84% | ~92% | 0.88 |
-
-> ⚠️ Earlier versions reported 99% accuracy due to 723 duplicate rows. After cleaning, results reflect true model performance.
+| Logistic Regression | ~77% | ~90% | — |
+| Random Forest | ~84% | ~92% | **0.88** ⭐ |
 
 ---
 
@@ -86,9 +114,9 @@ Models evaluated using **5-Fold Cross-Validation** on training data for reliable
 | Target Distribution | ![](./images/Figure_1.png) |
 | Correlation Heatmap | ![](./images/Figure_2.png) |
 | Outlier Detection | ![](./images/Figure_3.png) |
-| Logistic Regression - Confusion Matrix | ![](./images/Figure_4.png) |
-| Random Forest - Confusion Matrix | ![](./images/Figure_5.png) |
-| ROC Curve | ![](./images/Figure_6.png) |
+| Logistic Regression — Confusion Matrix | ![](./images/Figure_4.png) |
+| Random Forest — Confusion Matrix | ![](./images/Figure_5.png) |
+| ROC Curve (AUC = 0.88) | ![](./images/Figure_6.png) |
 
 ---
 
@@ -97,6 +125,7 @@ Models evaluated using **5-Fold Cross-Validation** on training data for reliable
 - Chest pain type (`cp`) is the strongest predictor of heart disease
 - Maximum heart rate (`thalach`) significantly impacts diagnosis
 - Dataset contained 70% duplicate rows — cleaning was critical for honest evaluation
+- Random Forest outperforms Logistic Regression on this dataset
 
 ---
 
@@ -104,6 +133,7 @@ Models evaluated using **5-Fold Cross-Validation** on training data for reliable
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Scikit-learn](https://img.shields.io/badge/Scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
 ![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=python&logoColor=white)
@@ -113,23 +143,68 @@ Models evaluated using **5-Fold Cross-Validation** on training data for reliable
 
 ## 🚀 How to Run
 
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/Ahmed-za55/Heart-Disease-Prediction.git
 cd Heart-Disease-Prediction
+```
+
+### 2. Install Dependencies
+```bash
 pip install -r requirements.txt
+```
+
+### 3. Train the Model
+```bash
 python main.py
 ```
+
+### 4. Launch the Web App
+```bash
+streamlit run app.py
+```
+
+> App runs at `http://localhost:8501`
 
 ---
 
 ## 💾 Saved Artifacts
 
-After running, two files are saved:
-- `heart_model.pkl` → Trained Random Forest model
-- `scaler.pkl` → Fitted StandardScaler for new predictions
+After running `main.py`, two files are saved automatically:
+
+| File | Description |
+|------|-------------|
+| `heart_model.pkl` | Trained Random Forest model |
+| `scaler.pkl` | Fitted StandardScaler for new predictions |
+
+---
+
+## 📁 Project Structure
+
+```
+Heart-Disease-Prediction/
+│
+├── images/
+│   ├── Figure_1.png        ← Target Distribution
+│   ├── Figure_2.png        ← Correlation Heatmap
+│   ├── Figure_3.png        ← Outlier Detection
+│   ├── Figure_4.png        ← LR Confusion Matrix
+│   ├── Figure_5.png        ← RF Confusion Matrix
+│   └── Figure_6.png        ← ROC Curve
+│
+├── main.py                 ← Training script
+├── app.py                  ← Streamlit Web App
+├── heart.csv               ← Dataset
+├── heart_model.pkl         ← Saved model
+├── scaler.pkl              ← Saved scaler
+├── requirements.txt        ← Dependencies
+└── README.md
+```
 
 ---
 
 ## 👨‍💻 Author
 
 **Ahmed Sameh** — Faculty of Artificial Intelligence, Kafrelsheikh University
+
+[![GitHub](https://img.shields.io/badge/GitHub-Ahmed--za55-181717?style=flat&logo=github)](https://github.com/Ahmed-za55)
